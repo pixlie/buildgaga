@@ -91,3 +91,12 @@ ENV/
 
 # Dwata config SQLite DB
 dwata_config.db
+
+# IDE
+.idea/
+
+# CSV source data
+fixtures/
+
+# Settings
+settings.py

@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;700;900&display=swap');
+
+// Update Bulma's global variables
+$family-sans-serif: "Poppins", sans-serif;
+
+// Reduce the size of the default shadow
+$scheme-invert: hsl(0, 0%, 4%);
+$card-shadow: 0 0 0 1px rgba($scheme-invert,.1), 0 2px 4px 0 rgba(14,30,37,.12);
+$panel-shadow: 0 0 0 1px rgba($scheme-invert,.1), 0 2px 4px 0 rgba(14,30,37,.12);
+$box-shadow: 0 0 0 1px rgba($scheme-invert,.1), 0 2px 4px 0 rgba(14,30,37,.12);
+
+@import '../../node_modules/bulma';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/solid.css';
+
+
+.title {
+  &.is-mega {
+    font-size: 6rem;
+    font-family: "Bangers", "Poppins", sans-serif;
+    font-weight: normal;
+    color: purple;
+    text-shadow: 4px 4px 2px #cfcfcf;
+  }
+}
+
+.navbar-item {
+  &.is-mega {
+    font-size: 2.1rem;
+    font-family: "Bangers", "Poppins", sans-serif;
+    padding: 0 0.75rem;
+    font-weight: normal;
+    text-shadow: 2px 2px 2px #cfcfcf;
+  }
+}

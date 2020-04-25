@@ -1,1 +1,1 @@
-export const FETCH_OBJECTIVE = "FETCH_OBJECTIVE";
+export const FETCH_CATEGORY = "FETCH_CATEGORY";

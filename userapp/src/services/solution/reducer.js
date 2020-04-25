@@ -1,4 +1,4 @@
-import { FETCH_CATEGORY } from './actionTypes';
+import { FETCH_SOLUTION } from './actionTypes';
 
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CATEGORY:
+    case FETCH_SOLUTION:
       return {
         ...action.payload,
       };

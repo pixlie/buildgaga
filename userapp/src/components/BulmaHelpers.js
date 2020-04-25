@@ -12,6 +12,15 @@ export const Hero = ({ heroSize = "", children }) => (
 );
 
 
+export const Section = ({ size = "", children }) => (
+  <section className={`section ${size}`}>
+    <div className="container">
+      { children }
+    </div>
+  </section>
+);
+
+
 export const Hx = ({ x = "3", titleClass = "title", children }) => {
   return React.createElement(`h${x}`, {className: `${titleClass} is-${x}`}, children);
 }

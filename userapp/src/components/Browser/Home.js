@@ -2,16 +2,20 @@ import React from 'react';
 
 
 export default () => (
-  <section className="hero">
-    <div className="hero-body">
-      <div className="container">
-        <div className="tag is-medium is-light">gaga: completely absorbed, infatuated, or excited</div>
-        <h1 className="title is-mega">
-          Build Gaga
-        </h1>
-        <h4 className="subtitle is-4">
-          Build software products better and faster.
-        </h4>
+  <section className="section is-medium">
+    <div className="container">
+      <h1 className="title is-1">
+        Building software can seem daunting
+      </h1>
+      <h3 className="subtitle is-3">
+        What if we made it easier?
+      </h3>
+      <div className="content is-medium">
+
+        <p>
+          There are a lot of platforms, software, documentation, communities and other resources available to make software development easier.
+          BuildGaga is an attempt to quickly point you to the right direction.
+        </p>
       </div>
     </div>
   </section>

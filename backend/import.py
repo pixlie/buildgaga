@@ -1,33 +1,40 @@
-import os
+import sys
+from collections import namedtuple
 from sqlalchemy import create_engine, select
 from sqlalchemy.exc import IntegrityError
-from csv import DictReader
+import pyexcel
 
 from settings import DATABASE_URL
-from models.objective import objective
+from category.models import category
 
 
-def read_objective():
+def read_category():
     engine = create_engine(DATABASE_URL)
     conn = engine.connect()
 
-    with open(os.path.abspath(os.path.join(".", "fixtures", "objective.csv")), "r") as file:
-        csvrd = DictReader(file, delimiter=",", quotechar='"')
-        i = 0
-        for row in csvrd:
-            row.pop("id", None)
-            parent = row.pop("parent", None)
+    book = pyexcel.get_book(file_name=sys.argv[1])
+    sheet = book.sheet_by_name("Category")
+    i = 0
+    CategoryNT = namedtuple("Category", ["label", "parent", "one_liner"])
 
-            if parent != "":
-                parent_fk = conn.execute(select([objective.c.id]).where(objective.c.label == parent)).scalar()
-                row["parent_fk"] = parent_fk
+    for record in map(CategoryNT._make, sheet.rows()):
+        if i == 0 or record.label == "":
+            i += 1
+            continue
+        row = record._asdict()
+        parent = row.pop("parent", None)
 
-            try:
-                conn.execute(objective.insert().values(**row))
-                print("Inserted: ", row)
-            except IntegrityError:
-                pass
+        if parent != "":
+            parent_fk = conn.execute(select([category.c.id]).where(category.c.label == parent)).scalar()
+            row["parent_fk"] = parent_fk
+
+        try:
+            conn.execute(category.insert().values(**row))
+            print("Inserted: ", row)
+        except IntegrityError:
+            pass
+        i += 1
 
 
 if __name__ == "__main__":
-    read_objective()
+    read_category()

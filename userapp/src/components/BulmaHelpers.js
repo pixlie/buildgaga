@@ -17,8 +17,8 @@ export const Hx = ({ x = "3", titleClass = "title", children }) => {
 }
 
 
-export const CellBox = ({ title, message, cellSize = 4, children }) => (
-  <div className={`column is-${cellSize}`}>
+export const CellBox = ({ title, message, colSize = 4, children }) => (
+  <div className={`column is-${colSize}`}>
     <div className="box">
       { title ? <Hx x="4" titleClass="subtitle">{title}</Hx> : null }
       { message ? (

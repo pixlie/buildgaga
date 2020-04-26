@@ -26,6 +26,14 @@ class RapidJSONResponse(JSONResponse):
         return CustomJSONEncoder().encode(content).encode("utf-8")
 
 
-db = Database(DATABASE_URL)
+class DataMixin(object):
+    _db = None
+
+    @property
+    def database(self):
+        if self._db is None:
+            self._db = Database(DATABASE_URL)
+        return self._db
+
 
 metadata = sqlalchemy.MetaData()

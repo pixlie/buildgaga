@@ -13,21 +13,20 @@ class ImportFromODS(object):
     _ods_file_path = None
     _engine = None
     _db_conn = None
-    _temp_category_fk = None
     _table_config = {
-        "category": {
-            "table": category,
-            "ods_columns": ["label", "parent", "one_liner"],
-            "ods_sheet_name": "Category",
-        },
-        "solution": {
-            "table": solution,
-            "ods_columns": ["label", "one_liner", "twitter", "url"],
-            "ods_sheet_name": "Solution",
-        },
+        # "category": {
+        #     "table": category,
+        #     "ods_columns": ["label", "parent", "one_liner"],
+        #     "ods_sheet_name": "Category",
+        # },
+        # "solution": {
+        #     "table": solution,
+        #     "ods_columns": ["label", "one_liner", "twitter", "url"],
+        #     "ods_sheet_name": "Solution",
+        # },
         "category_solution": {
             "table": category_solution,
-            "ods_columns": ["category", "solution"],
+            "ods_columns": ["solution", "category", "category1", "category2"],
             "ods_sheet_name": "CategorySolution",
         }
     }
@@ -64,7 +63,7 @@ class ImportFromODS(object):
     def pre_insert_category(self, row):
         if row["label"] == "":
             return None
-
+        row["label"] = row["label"].strip()
         parent = row.pop("parent", None)
         if parent != "":
             parent_fk = self._db_conn.execute(select([category.c.id]).where(category.c.label == parent)).scalar()
@@ -74,24 +73,22 @@ class ImportFromODS(object):
     def pre_insert_solution(self, row):
         if row["label"] == "":
             return None
-        _category = row.pop("category", None)
-        self._temp_category_fk = self._db_conn.execute(select([category.c.id]).
-                                                       where(category.c.label == _category)).scalar()
+        row["label"] = row["label"].strip()
         return row
 
-    """
-    def post_insert_solution(self, pk, row):
-        if pk is None:
-            pk = self._db_conn.execute(select([solution.c.id]).
-                                       where(solution.c.label == row["label"])).scalar()
-        try:
-            self._db_conn.execute(category_solution.insert().values(
-                category_fk=self._temp_category_fk,
-                solution_fk=pk
-            ))
-        except IntegrityError:
-            pass
-    """
+    def pre_insert_category_solution(self, row):
+        if row["solution"] == "":
+            return None
+        _solution = row.pop("solution").strip()
+        row.pop("category").strip()
+        _category = row.pop("category1")
+        row.pop("category2")
+
+        row["category_fk"] = self._db_conn.execute(select([category.c.id]).
+                                                   where(category.c.label == _category)).scalar()
+        row["solution_fk"] = self._db_conn.execute(select([solution.c.id]).
+                                                   where(solution.c.label == _solution)).scalar()
+        return row
 
     def import_from_ods(self):
         book = pyexcel.get_book(file_name=sys.argv[1])
@@ -99,38 +96,6 @@ class ImportFromODS(object):
             sheet = book.sheet_by_name(config["ods_sheet_name"])
             model_namedtuple = namedtuple(key, config["ods_columns"])
             self.insert_from_sheet(name=key, model_namedtuple=model_namedtuple, sheet=sheet, table=config["table"])
-
-
-"""
-def read_category():
-    engine = create_engine(DATABASE_URL)
-    conn = engine.connect()
-
-    book = pyexcel.get_book(file_name=sys.argv[1])
-    sheet = book.sheet_by_name("Category")
-    i = 0
-    CategoryNT = namedtuple("Category", ["label", "parent", "one_liner"])
-
-    for record in map(CategoryNT._make, sheet.rows()):
-        if i == 0 or record.label == "":
-            i += 1
-            continue
-        row = record._asdict()
-        parent = row.pop("parent", None)
-
-        if parent != "":
-            parent_fk = conn.execute(select([category.c.id]).where(category.c.label == parent)).scalar()
-            row["parent_fk"] = parent_fk
-
-        try:
-            conn.execute(category.insert().values(**row))
-            print("Inserted: ", row)
-        except IntegrityError:
-            pass
-        i += 1
-
-    sheet = book.sheet_by_name("Solution")
-"""
 
 
 if __name__ == "__main__":

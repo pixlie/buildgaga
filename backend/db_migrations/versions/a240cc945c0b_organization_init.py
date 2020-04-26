@@ -23,7 +23,7 @@ def upgrade():
         Column("id", Integer, primary_key=True),
 
         Column("label", String(60), unique=True, nullable=False),
-        Column("description", String(140), nullable=True),
+        Column("description", String(160), nullable=True),
         Column("url", String(100), nullable=True)
     )
 

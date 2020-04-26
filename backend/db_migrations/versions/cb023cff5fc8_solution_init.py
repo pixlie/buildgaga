@@ -24,7 +24,7 @@ def upgrade():
         Column("organization_fk", Integer, ForeignKey("organization.id"), nullable=True),
 
         Column("label", String(60), unique=True, nullable=False),
-        Column("one_liner", String(length=140), nullable=True),
+        Column("one_liner", String(length=160), nullable=True),
         Column("description", String(length=500), nullable=True),
         Column("twitter", String(40), nullable=True),
         Column("url", String(100), nullable=True)

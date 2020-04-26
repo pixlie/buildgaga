@@ -1,5 +1,5 @@
 import { INITIATE_FETCH_SOLUTION, FETCH_SOLUTION } from './actionTypes';
-import { transformData } from '../utils';
+import { transformData } from 'utils';
 
 
 const initialState = {

@@ -7,7 +7,6 @@ import Home from './Home';
 import { fetchCategory } from 'services/category/actions';
 import { fetchCategorySolution } from 'services/categorySolution/actions';
 import CategoryList from './CategoryList';
-import Root from './Root';
 
 
 const Browser = ({ fetchCategory, fetchCategorySolution }) => {
@@ -25,14 +24,14 @@ const Browser = ({ fetchCategory, fetchCategorySolution }) => {
           <CategoryList />
         </Route>
 
-        <Route path="/category" exact>
-          <Root />
+        <Route path="/category/:category_id" exact>
+          <CategoryList />
         </Route>
 
         <Route path="/solution/:solution_id/:slug" exact></Route>
 
         <Route path="/" exact>
-          <Root />
+          <CategoryList />
         </Route>
       </Switch>
     </Fragment>

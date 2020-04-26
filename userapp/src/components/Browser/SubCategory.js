@@ -20,24 +20,18 @@ const SubCategory = ({ category, solution, categorySolution, currentCategory, fe
     );
   }
 
-  relatedSolutionID = categorySolution.rows.filter(x => x.category_fk === currentCategory.id).map(x => x.solution_fk);
-  const rootCategory = {
-    category: currentCategory,
-    children: solution.rows.filter(y => relatedSolutionID.includes(y.id)),
-  }
+  const relatedSolutionID = categorySolution.rows.filter(x => x.category_fk === currentCategory.id).map(x => x.solution_fk);
+  const children = solution.rows.filter(y => relatedSolutionID.includes(y.id));
+  const parentCategory = category.rows.find(x => x.id === currentCategory.parent_fk);
 
   return (
-    <Fragment>
-      { Object.values(rootCategory).filter(root => root.children.length !== 0).map((item, i) => (
-        <BrowseSection key={`sec-${i}`} {...item.category}>
-          <Fragment>
-            { item.children.map(data => (
-              <SolutionItem {...data} key={`sc-${data.id}`} />
-            )) }
-          </Fragment>
-        </BrowseSection>
-      )) }
-    </Fragment>
+    <BrowseSection {...currentCategory}>
+      <Fragment>
+        { children.map(data => (
+          <SolutionItem {...data} key={`sc-${data.id}`} />
+        )) }
+      </Fragment>
+    </BrowseSection>
   );
 }
 

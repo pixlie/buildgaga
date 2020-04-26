@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { CellBox, Hx } from 'components/BulmaHelpers';
-import { slugify } from 'services/utils';
+import { slugify } from 'utils';
 
 
 const SubCategoryItem = ({ id, one_liner, label, categorySolution }) => {
@@ -19,6 +19,7 @@ const SubCategoryItem = ({ id, one_liner, label, categorySolution }) => {
   if (hasSolutions) {
     return (
       <CellBox title={label} message={one_liner} colSize="6" url={url}>
+        <div className="tag is-success">{solutions.length} solution(s)</div>
       </CellBox>
     );
   } else {

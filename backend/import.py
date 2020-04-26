@@ -14,16 +14,16 @@ class ImportFromODS(object):
     _engine = None
     _db_conn = None
     _table_config = {
-        # "category": {
-        #     "table": category,
-        #     "ods_columns": ["label", "parent", "one_liner"],
-        #     "ods_sheet_name": "Category",
-        # },
-        # "solution": {
-        #     "table": solution,
-        #     "ods_columns": ["label", "one_liner", "twitter", "url"],
-        #     "ods_sheet_name": "Solution",
-        # },
+        "category": {
+            "table": category,
+            "ods_columns": ["label", "parent", "one_liner"],
+            "ods_sheet_name": "Category",
+        },
+        "solution": {
+            "table": solution,
+            "ods_columns": ["label", "one_liner", "twitter", "url"],
+            "ods_sheet_name": "Solution",
+        },
         "category_solution": {
             "table": category_solution,
             "ods_columns": ["solution", "category", "category1", "category2"],

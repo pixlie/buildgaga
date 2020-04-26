@@ -1,33 +1,46 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
 
 import Home from './Home';
 import { fetchCategory } from 'services/category/actions';
-import { fetchSolution } from 'services/solution/actions';
+import { fetchCategorySolution } from 'services/categorySolution/actions';
 import CategoryList from './CategoryList';
+import Root from './Root';
 
 
-const Browser = ({ category, fetchCategory, fetchSolution }) => {
+const Browser = ({ fetchCategory, fetchCategorySolution }) => {
   useEffect(() => {
     fetchCategory();
-    fetchSolution();
+    fetchCategorySolution();
   }, []);
 
   return (
     <Fragment>
       <Home />
 
-      <CategoryList category={category} />
+      <Switch>
+        <Route path="/category/:category_id/:slug" exact>
+          <CategoryList />
+        </Route>
+
+        <Route path="/category" exact>
+          <Root />
+        </Route>
+
+        <Route path="/solution/:solution_id/:slug" exact></Route>
+
+        <Route path="/" exact>
+          <Root />
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
 
-const mapStateToProps = state => ({
-  category: state.category,
-});
 
 export default connect(
-  mapStateToProps,
-  { fetchCategory, fetchSolution }
+  () => ({}),
+  { fetchCategory, fetchCategorySolution }
 )(Browser);

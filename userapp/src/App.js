@@ -20,6 +20,14 @@ export default ({ initialState = {} }) => (
               <Favorite />
             </Route> */}
 
+            <Route path="/category">
+              <Browser />
+            </Route>
+
+            <Route path="/solution">
+              <Browser />
+            </Route>
+
             <Route path="/">
               <Browser />
             </Route>

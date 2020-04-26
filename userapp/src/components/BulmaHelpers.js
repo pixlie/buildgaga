@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 
 export const Hero = ({ heroSize = "", children }) => (
@@ -26,17 +27,37 @@ export const Hx = ({ x = "3", titleClass = "title", children }) => {
 }
 
 
-export const CellBox = ({ title, message, colSize = 4, children }) => (
-  <div className={`column is-${colSize}`}>
-    <div className="box">
-      { title ? <Hx x="4" titleClass="subtitle">{title}</Hx> : null }
-      { message ? (
-        <p>{message}</p>
-      ) : null }
-      { children }
+export const CellBox = withRouter(({ title, message, colSize = 4, url, history, children }) => {
+  if (url !== undefined) {
+    const handleRoute = event => {
+      event.preventDefault();
+      history.push(url);
+    }
+    return (
+      <div className={`column is-${colSize}`}>
+        <div className="box" onClick={handleRoute}>
+          { title ? <Hx x="4" titleClass="subtitle">{title}</Hx> : null }
+          { message ? (
+            <p>{message}</p>
+          ) : null }
+          { children }
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`column is-${colSize}`}>
+      <div className="box">
+        { title ? <Hx x="4" titleClass="subtitle">{title}</Hx> : null }
+        { message ? (
+          <p>{message}</p>
+        ) : null }
+        { children }
+      </div>
     </div>
-  </div>
-);
+  );
+});
 
 
 const TabContent = ({ tabName, currentTab, children }) => (

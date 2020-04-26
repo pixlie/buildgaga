@@ -1,10 +1,14 @@
 import axios from 'axios';
 
 import { solutionURL } from '../urls';
-import { FETCH_SOLUTION } from './actionTypes';
+import { INITIATE_FETCH_SOLUTION, FETCH_SOLUTION } from './actionTypes';
 
 
 export const fetchSolution = (filters, sortBy, callback) => dispatch => {
+  dispatch({
+    type: INITIATE_FETCH_SOLUTION,
+  });
+
   return axios
     .get(solutionURL)
     .then(res => {

@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-import { categoryURL } from '../urls';
-import { INITIATE_FETCH_CATEGORY, FETCH_CATEGORY } from './actionTypes';
+import { categorySolutionURL } from '../urls';
+import { INITIATE_FETCH_CATEGORY_SOLUTION, FETCH_CATEGORY_SOLUTION } from './actionTypes';
 
 
-export const fetchCategory = (filters, sortBy, callback) => dispatch => {
+export const fetchCategorySolution = (filters, sortBy, callback) => dispatch => {
   dispatch({
-    type: INITIATE_FETCH_CATEGORY,
+    type: INITIATE_FETCH_CATEGORY_SOLUTION
   });
 
   return axios
-    .get(categoryURL)
+    .get(categorySolutionURL)
     .then(res => {
       let { columns, rows } = res.data;
 
@@ -29,7 +29,7 @@ export const fetchCategory = (filters, sortBy, callback) => dispatch => {
       }
 
       return dispatch({
-        type: FETCH_CATEGORY,
+        type: FETCH_CATEGORY_SOLUTION,
         payload: {
           columns,
           rows
@@ -37,6 +37,6 @@ export const fetchCategory = (filters, sortBy, callback) => dispatch => {
       });
     })
     .catch(err => {
-      console.log('Could not fetch categories. Try again later.');
+      console.log('Could not fetch categorySolutions. Try again later.');
     });
 };

@@ -1,4 +1,4 @@
-import { INITIATE_FETCH_SOLUTION, FETCH_SOLUTION } from './actionTypes';
+import { INITIATE_FETCH_CATEGORY_SOLUTION, FETCH_CATEGORY_SOLUTION } from './actionTypes';
 import { transformData } from '../utils';
 
 
@@ -12,13 +12,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case INITIATE_FETCH_SOLUTION:
+    case INITIATE_FETCH_CATEGORY_SOLUTION:
       return {
-        ...state,
         isFetching: true,
       };
 
-      case FETCH_SOLUTION:
+      case FETCH_CATEGORY_SOLUTION:
       return {
         columns: action.payload.columns,
         rows: action.payload.rows.map(row => transformData(action.payload.columns, row)),

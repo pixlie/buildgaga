@@ -6,29 +6,24 @@ import { slugify } from 'utils';
 
 
 const SubCategoryItem = ({ id, one_liner, label, categorySolution }) => {
-  if (!categorySolution.isReady) {
-    return (
-      <div>Loading...</div>
-    );
-  }
+  if (categorySolution.isReady) {
+    const solutions = categorySolution.rows.filter(cs => cs.category_fk === id);
+    const hasSolutions = solutions.length > 0;
+    const url = hasSolutions ? `/category/${id}/${slugify(label)}/` : null;  
 
-  const solutions = categorySolution.rows.filter(cs => cs.category_fk === id);
-  const hasSolutions = solutions.length > 0;
-  const url = hasSolutions ? `/category/${id}/${slugify(label)}/` : null;
-
-  if (hasSolutions) {
-    return (
-      <CellBox title={label} message={one_liner} colSize="6" url={url}>
-        <div className="tag is-success">{solutions.length} solution(s)</div>
-      </CellBox>
-    );
-  } else {
-    return (
-      <CellBox title={label} message={one_liner} colSize="6">
-        <div className="tag is-info is-light">Coming soon</div>
-      </CellBox>
-    )
+    if (hasSolutions) {
+      return (
+        <CellBox title={label} message={one_liner} colSize="6" url={url}>
+          <div className="tag is-success">{solutions.length} solution(s)</div>
+        </CellBox>
+      );
+    }
   }
+  return (
+    <CellBox title={label} message={one_liner} colSize="6">
+      <div className="tag is-info is-light">Coming soon</div>
+    </CellBox>
+  );
 };
 
 

@@ -22,8 +22,13 @@ class ImportFromODS(object):
         },
         "solution": {
             "table": solution,
-            "ods_columns": ["category",	"label", "one_liner", "twitter", "url"],
+            "ods_columns": ["label", "one_liner", "twitter", "url"],
             "ods_sheet_name": "Solution",
+        },
+        "category_solution": {
+            "table": category_solution,
+            "ods_columns": ["category", "solution"],
+            "ods_sheet_name": "CategorySolution",
         }
     }
 
@@ -74,6 +79,7 @@ class ImportFromODS(object):
                                                        where(category.c.label == _category)).scalar()
         return row
 
+    """
     def post_insert_solution(self, pk, row):
         if pk is None:
             pk = self._db_conn.execute(select([solution.c.id]).
@@ -85,6 +91,7 @@ class ImportFromODS(object):
             ))
         except IntegrityError:
             pass
+    """
 
     def import_from_ods(self):
         book = pyexcel.get_book(file_name=sys.argv[1])

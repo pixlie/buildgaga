@@ -1,12 +1,16 @@
 import axios from 'axios';
 
-import { objectiveURL } from '../urls';
-import { FETCH_OBJECTIVE } from './actionTypes';
+import { categoryURL } from '../urls';
+import { INITIATE_FETCH_CATEGORY, FETCH_CATEGORY } from './actionTypes';
 
 
-export const fetchObjective = (filters, sortBy, callback) => dispatch => {
+export const fetchCategory = (filters, sortBy, callback) => dispatch => {
+  dispatch({
+    type: INITIATE_FETCH_CATEGORY,
+  });
+
   return axios
-    .get(objectiveURL)
+    .get(categoryURL)
     .then(res => {
       let { columns, rows } = res.data;
 
@@ -25,7 +29,7 @@ export const fetchObjective = (filters, sortBy, callback) => dispatch => {
       }
 
       return dispatch({
-        type: FETCH_OBJECTIVE,
+        type: FETCH_CATEGORY,
         payload: {
           columns,
           rows
@@ -33,6 +37,6 @@ export const fetchObjective = (filters, sortBy, callback) => dispatch => {
       });
     })
     .catch(err => {
-      console.log('Could not fetch objectives. Try again later.');
+      console.log('Could not fetch categories. Try again later.');
     });
 };

@@ -1,1 +1,0 @@
-export const FETCH_OBJECTIVE = "FETCH_OBJECTIVE";

@@ -11,19 +11,20 @@ solution = Table(
     Column("organization_fk", Integer, ForeignKey("organization.id"), nullable=True),
 
     Column("label", String(60), unique=True, nullable=False),
-    Column("one_liner", String(length=140), nullable=True),
+    Column("one_liner", String(length=160), nullable=True),
     Column("description", String(length=500), nullable=True),
+    Column("twitter", String(40), nullable=True),
     Column("url", String(100), nullable=True)
 )
 
 
-objective_solution = Table(
-    "objective_solution",
+category_solution = Table(
+    "category_solution",
     metadata,
 
     Column("id", Integer, primary_key=True),
-    Column("objective_fk", Integer, nullable=False),
+    Column("category_fk", Integer, nullable=False),
     Column("solution_fk", Integer, nullable=False),
 
-    UniqueConstraint("objective_fk", "solution_fk", name="objective_solution_unique")
+    UniqueConstraint("category_fk", "solution_fk", name="category_solution_unique")
 )

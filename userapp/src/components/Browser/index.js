@@ -1,43 +1,45 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
 
 import Home from './Home';
-import { CellBox } from 'components/BulmaHelpers';
-import { fetchObjective } from 'services/objective/actions';
-import { transformData } from 'services/utils';
+import { fetchCategory } from 'services/category/actions';
+import { fetchCategorySolution } from 'services/categorySolution/actions';
+import CategoryList from './CategoryList';
 
 
-const Browser = ({ objective, fetchObjective }) => {
+const Browser = ({ fetchCategory, fetchCategorySolution }) => {
   useEffect(() => {
-    fetchObjective();
+    fetchCategory();
+    fetchCategorySolution();
   }, []);
 
   return (
     <Fragment>
       <Home />
 
-      <div className="columns">
-        { objective.rows.filter(x => x[1] !== null).map(item => {
-          const data = transformData(objective.columns, item);
-          const parent = transformData(objective.columns, objective.rows.find(x => x[0] === data.parent_fk));
+      <Switch>
+        <Route path="/category/:category_id/:slug" exact>
+          <CategoryList />
+        </Route>
 
-          return (
-            <CellBox key={`ob-${data.id}`} title={data.label} message={data.one_liner}>
-              <div className="tag is-medium is-warning">{parent.label}</div>
-            </CellBox>
-          );
-        }) }
-      </div>
+        <Route path="/category/:category_id" exact>
+          <CategoryList />
+        </Route>
+
+        <Route path="/solution/:solution_id/:slug" exact></Route>
+
+        <Route path="/" exact>
+          <CategoryList />
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
 
-const mapStateToProps = state => ({
-  objective: state.objective,
-});
 
 export default connect(
-  mapStateToProps,
-  { fetchObjective }
+  () => ({}),
+  { fetchCategory, fetchCategorySolution }
 )(Browser);

@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=PT+Serif+Caption&family=Poppins:wght@400;700&display=swap');
 
 // Update Bulma's global variables
 $family-sans-serif: "Poppins", sans-serif;
+$family-serif: "PT Serif Caption", serif;
+$title-family: $family-serif;
 
 // Reduce the size of the default shadow
 $scheme-invert: hsl(0, 0%, 4%);
@@ -13,6 +15,10 @@ $box-shadow: 0 0 0 1px rgba($scheme-invert,.1), 0 2px 4px 0 rgba(14,30,37,.12);
 @import '../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
 @import '../../node_modules/@fortawesome/fontawesome-free/css/solid.css';
 
+
+// h1, h2, h3, h4, h5, h6 {
+//   font-family: $family-serif;
+// }
 
 .title {
   &.is-mega {

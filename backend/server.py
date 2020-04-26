@@ -2,12 +2,14 @@ import uvicorn
 from starlette.applications import Starlette
 from starlette.routing import Route
 
-from handlers.objective import Objective
+from category.endpoints import CategoryEndpoint
+from solution.endpoints import SolutionEndpoint, CategorySolutionEndpoint
 
 
 handlers = [
-    Route(r"/api/objective/", Objective),
-    # Route(r"/api/solution/", get_valid_edge, methods=["GET"])
+    Route(r"/api/category/", CategoryEndpoint),
+    Route(r"/api/solution/", SolutionEndpoint),
+    Route(r"/api/category_solution/", CategorySolutionEndpoint),
 ]
 
 

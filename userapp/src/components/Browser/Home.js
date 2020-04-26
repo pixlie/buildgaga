@@ -1,18 +1,16 @@
 import React from 'react';
 
+import { Section, Hx } from 'components/BulmaHelpers';
+
 
 export default () => (
-  <section className="hero">
-    <div className="hero-body">
-      <div className="container">
-        <div className="tag is-medium is-light">gaga: completely absorbed, infatuated, or excited</div>
-        <h1 className="title is-mega">
-          Build Gaga
-        </h1>
-        <h4 className="subtitle is-4">
-          Build software products better and faster.
-        </h4>
-      </div>
-    </div>
-  </section>
+  <Section>
+    <Hx x="1">
+      Building software seems daunting?
+    </Hx>
+    <Hx x="3" titleClass="subtitle">
+      Here are the resources to make it easier.
+    </Hx>
+    <div className="tag is-medium is-warning">We just launched!</div>
+  </Section>
 );
